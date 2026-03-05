@@ -1,5 +1,5 @@
 type ScreenTypes = {
-  EditScreen: { id: number };
+  EditScreen: { id: string };
   MainScreen: undefined;
 };
 
