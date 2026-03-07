@@ -1,0 +1,2 @@
+npx json-server --watch database.json --port 8888
+npx expo start --tunnel
