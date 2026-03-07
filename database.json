@@ -179,6 +179,18 @@
       "lastname": "Nascimento",
       "email": "paula@gmail.com",
       "id": "30"
+    },
+    {
+      "id": "6d26",
+      "firstname": "asdasd",
+      "lastname": "asdasd",
+      "email": "asdasda"
+    },
+    {
+      "id": "9797",
+      "firstname": "dasdasd",
+      "lastname": "asdas",
+      "email": "asd"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

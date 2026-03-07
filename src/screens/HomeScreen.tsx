@@ -54,7 +54,7 @@ const Home = ({ navigation }: MainScreenParams) => {
 
                     <TouchableOpacity style={HomeStyles.btn} onPress={() => setShowCreator(true)}>
                         <Text>
-                            Criar um usuário
+                            Create an user
                         </Text>
                     </TouchableOpacity>
                 </View>

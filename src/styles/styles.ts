@@ -69,17 +69,37 @@ export const CreateStyles = StyleSheet.create({
     container: {
         position: "absolute",
         width: "85%",
-        height: "65%",
+        height: "45%",
         backgroundColor: "rgb(255, 255, 255)",
         borderRadius: 10,
-        alignItems: "center"
+        alignItems: "center",
+        padding:10,
+        display: "flex",
+        flexDirection: "column",
+        gap: 20
     },
     closeBtn: {
         position: "absolute",
         top: 5,
-        left: 10,
+        left: 0,
         width: 30,
         height: 30,
-        backgroundColor: "#f00"
+        // backgroundColor: "#f00"
+    },
+    createInput: {
+        width: "90%",
+        height: "15%",
+        borderRadius: 5,
+        padding: 10,
+        backgroundColor: "rgb(255, 202, 202)"
+    },
+    createBtn: {
+        width: "90%",
+        height: "15%",
+        borderRadius: 5,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor:"rgb(134, 255, 134)"
     }
 });
