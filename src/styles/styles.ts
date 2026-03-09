@@ -70,8 +70,61 @@ export const HomeStyles = StyleSheet.create({
 
 export const EditStyles = StyleSheet.create({
     container: {
-
+        width: screenWidth,
+        height: screenHeight,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        position: "relative",
+        backgroundColor: "#0d1e39"
     }, 
+    backBtn: {
+        position: "absolute",
+        top: 22, 
+        left: 5
+    },
+    mainContent: {
+        backgroundColor: "#a7ceff",
+        display: "flex",
+        alignItems: "center",
+        height: 500,
+        width: "85%",
+        borderRadius: 10,
+        gap: 10,
+        padding: 10
+    },
+    updBtn: {
+        width: "95%",
+        height: "10%",
+        backgroundColor: "#5ca2ff",
+        borderRadius: 10,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 30,
+        marginBottom: 30
+    },
+    delBtn: {
+        width: "95%",
+        height: "10%",
+        backgroundColor: "#2f5891",
+        borderRadius: 10,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    bckgInput: {
+        height: "15%",
+        width: "95%"
+    },
+    updInput: {
+        flex: 1,
+        backgroundColor: "#d9e8ff",
+        display: "flex",
+        alignItems: "center",
+        padding: 10,
+        borderRadius: 5
+    }
 });
 
 export const CreateStyles = StyleSheet.create({
