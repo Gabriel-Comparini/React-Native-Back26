@@ -1,9 +1,8 @@
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
-import { HOST, PORT } from "../constants";
+import { HOST, NGROK_URL, PORT } from "../constants";
 import { useEffect, useState } from "react";
 import { CreateStyles } from "../styles/styles";
 import { X } from "lucide-react-native";
-
 
 const UserCreator = ({ show, onClose }: { show: boolean, onClose: () => void }) => {
     const [viewDiv, setViewDiv] = useState(false);
@@ -19,20 +18,33 @@ const UserCreator = ({ show, onClose }: { show: boolean, onClose: () => void }) 
         }
             
         try {
-            await fetch(`http://${HOST}:${PORT}/people`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    firstname,
-                    lastname,
-                    email
-                })
-            });
+            if (NGROK_URL.trim() !== "") {
+                await fetch(`${NGROK_URL}/people`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        firstname,
+                        lastname,
+                        email
+                    })
+                }); 
+            } else {
+                await fetch(`http://${HOST}:${PORT}/people`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        firstname,
+                        lastname,
+                        email
+                    })
+                }); 
+            }
             setMissingDiv(false);
             setUserEmail("");
             setUserLastName("");
             setUserName("");
             onClose();
+            return;
         } catch (error) {
             console.error(`An error occured while creating a new people: ${error}`);
         }
@@ -46,7 +58,7 @@ const UserCreator = ({ show, onClose }: { show: boolean, onClose: () => void }) 
         setViewDiv(false);
 
     }, [show]);
-
+    
     return(
         <View style={[CreateStyles.container, {display: viewDiv ? "flex" : "none"}]}>
             <Text style={{ fontWeight: 600, fontSize: 20 }}>
@@ -57,7 +69,7 @@ const UserCreator = ({ show, onClose }: { show: boolean, onClose: () => void }) 
                 setMissingDiv(false);
                 onClose();
             }}>
-                <X width={50} height={50}/>
+                <X width={30} height={30} />
             </TouchableOpacity>
 
             <TextInput style={CreateStyles.createInput} value={userName} onChangeText={ setUserName } placeholder="Enter your name..." />
@@ -73,7 +85,7 @@ const UserCreator = ({ show, onClose }: { show: boolean, onClose: () => void }) 
             </TouchableOpacity>
 
             {missingDiv && (
-                <Text style={ { position: "absolute", bottom: 5, color: "#f00" } }>
+                <Text style={ { position: "absolute", bottom: 5, color: "#0d1e39" } }>
                     You are missing an Input!
                 </Text>
             )}

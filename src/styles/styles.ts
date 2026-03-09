@@ -1,8 +1,13 @@
 import { StyleSheet } from "react-native";
+import { Dimensions } from "react-native";
+
+const screenWidth = Dimensions.get("screen").width;
+const screenHeight = Dimensions.get("screen").height;
 
 export const HomeStyles = StyleSheet.create({
     fContainer: {
-        flex: 1,
+        width: screenWidth,
+        height: screenHeight,
         display: "flex",
         justifyContent: "center",
         alignItems: "center"
@@ -10,19 +15,24 @@ export const HomeStyles = StyleSheet.create({
     container: {
         flex: 1,
         width: "100%",
-        backgroundColor: "#fff"
+        backgroundColor: "#0d1e39"
     }, 
     newCard: {
         position: "absolute"
     },
     mainContent: {
         flex: 1,
-        padding: 5,
-        paddingTop: 10
+        padding: 15,
+        paddingTop: 15,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
     },
     searchInput: {
-        height: "10%",
-        backgroundColor: "#fff09b",
+        height: "8%",
+        marginTop: 20,
+        width: "100%",
+        backgroundColor: "#d9e8ff",
         display: "flex",
         alignItems: "center",
         padding: 10,
@@ -30,32 +40,31 @@ export const HomeStyles = StyleSheet.create({
     },
     bottomBtns: {
         width: "100%",
-        height: "7%",
-        backgroundColor: "#000"
+        height: "6.5%"
     },
     mainList: {
         flex: 1,
-        paddingTop: 25,
-        padding: 10
-        // backgroundColor: "#f00"
+        width: "100%",
+        padding: 10,
+        margin: 5
     },
     itemList: {
         width: "auto",
-        // display: "flex",
-        // justifyContent: "center",
-        // alignItems: "center",
         marginBottom: 10,
         borderRadius: 10,
         padding: 10,
-        backgroundColor: "#c4c4c4"
+        backgroundColor: "#2f5891",
+        borderColor: "#5ca2ff",
+        borderWidth: 1
     },
     btn: {
         borderRadius: 10,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "10%",
-        backgroundColor: "rgb(91, 255, 91)"
+        height: "7%",
+        width: "100%",
+        backgroundColor: "#5ca2ff"
     }
 });
 
@@ -69,8 +78,8 @@ export const CreateStyles = StyleSheet.create({
     container: {
         position: "absolute",
         width: "85%",
-        height: "45%",
-        backgroundColor: "rgb(255, 255, 255)",
+        height: 350,
+        backgroundColor: "#a7ceff",
         borderRadius: 10,
         alignItems: "center",
         padding:10,
@@ -81,7 +90,7 @@ export const CreateStyles = StyleSheet.create({
     closeBtn: {
         position: "absolute",
         top: 5,
-        left: 0,
+        left: 3,
         width: 30,
         height: 30,
         // backgroundColor: "#f00"
@@ -91,7 +100,7 @@ export const CreateStyles = StyleSheet.create({
         height: "15%",
         borderRadius: 5,
         padding: 10,
-        backgroundColor: "rgb(255, 202, 202)"
+        backgroundColor: "#d9e8ff"
     },
     createBtn: {
         width: "90%",
@@ -100,6 +109,6 @@ export const CreateStyles = StyleSheet.create({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor:"rgb(134, 255, 134)"
+        backgroundColor:"#5ca2ff"
     }
 });

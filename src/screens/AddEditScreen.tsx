@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { HOST, PORT } from "../constants";
+import { HOST, NGROK_URL, PORT } from "../constants";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 
 
@@ -13,12 +13,21 @@ const Edit = ({ route, navigation }: EditScreenParams) => {
         if (!id) return;
     
         try {
+            if (NGROK_URL.trim() !== "") {
+                await fetch(`${NGROK_URL}/people/${id}`, {
+                    method: "DELETE"
+                });
+
+                navigation.goBack();
+                return;
+            }
+
             await fetch(`http://${HOST}:${PORT}/people/${id}`, {
                 method: "DELETE"
             });
 
             navigation.goBack();
-
+            return;
         } catch (error) {
             console.error(`An error occured while deleting a people: ${error}`);
         }
@@ -28,6 +37,19 @@ const Edit = ({ route, navigation }: EditScreenParams) => {
         if (!id || !firstname || !lastname || !email) return;
     
         try {
+            if(NGROK_URL.trim() !== "") {
+                await fetch(`${NGROK_URL}/people/${id}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        firstname,
+                        lastname,
+                        email
+                    })
+                });
+                return;
+            }
+
             await fetch(`http://${HOST}:${PORT}/people/${id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
@@ -37,6 +59,7 @@ const Edit = ({ route, navigation }: EditScreenParams) => {
                     email
                 })
             });
+            return;
         } catch (error) {
             console.error(`An error occured while updating a people: ${error}`);
         }
@@ -45,6 +68,17 @@ const Edit = ({ route, navigation }: EditScreenParams) => {
     useEffect(() => {
         async function init() {
             try {
+                if (NGROK_URL.trim() !== "") {
+                    await fetch(`${NGROK_URL}/people/${id}`)
+                    .then(response => response.json())
+                    .then((data) => {
+                        setUserName(data.firstname);
+                        setUserLastName(data.lastname);
+                        setUserEmail(data.email);
+                    });
+                    return;
+                }
+
                 await fetch(`http://${HOST}:${PORT}/people/${id}`)
                 .then(response => response.json())
                 .then((data) => {
@@ -52,6 +86,7 @@ const Edit = ({ route, navigation }: EditScreenParams) => {
                     setUserLastName(data.lastname);
                     setUserEmail(data.email);
                 });
+                return;
             } catch (error) {
                 console.error(`An error occured while getting a people: ${error}`);
             }
