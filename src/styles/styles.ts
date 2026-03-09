@@ -165,3 +165,35 @@ export const CreateStyles = StyleSheet.create({
         backgroundColor:"#5ca2ff"
     }
 });
+
+export const SureStyles = StyleSheet.create({
+    container: {
+        position: "absolute",
+        width: "90%",
+        borderRadius: 10,
+        backgroundColor: "#a7ceff",
+        zIndex: 1,
+        padding: 10,
+        display: "flex",
+        alignItems: "center",
+        gap: 20
+    },
+    btnsView: {
+        width:"90%",
+        height: 50,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "row",
+        gap: 10
+    },
+    btn: {
+        width: "48%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 10,
+        height: "90%",
+        backgroundColor: "#2f5891"
+    }
+});

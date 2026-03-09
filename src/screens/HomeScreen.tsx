@@ -43,7 +43,7 @@ const Home = ({ navigation }: MainScreenParams) => {
 
     return(
         <View style={HomeStyles.fContainer}>
-            <View style={[HomeStyles.container, { pointerEvents: showCreator ? "none" : "auto",  }]}>
+            <View style={[HomeStyles.container, { pointerEvents: showCreator ? "none" : "auto"}]}>
                 <View style={HomeStyles.mainContent}>
 
                     <TextInput value={name} onChangeText={setName} placeholder="Search for an username..." style={HomeStyles.searchInput} />
