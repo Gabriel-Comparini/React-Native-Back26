@@ -78,7 +78,9 @@ const UserCreator = ({ show, onClose }: { show: boolean, onClose: () => void }) 
 
             <TextInput style={CreateStyles.createInput} value={userEmail} onChangeText={ setUserEmail } placeholder="Enter your email..."/>
 
-            <TouchableOpacity style={CreateStyles.createBtn} onPress={() => createNewUser(userName, userLastName, userEmail)}>
+            <TouchableOpacity style={CreateStyles.createBtn} onPress={() => {
+                setMissingDiv(false);
+            }}>
                 <Text>
                     Create
                 </Text>

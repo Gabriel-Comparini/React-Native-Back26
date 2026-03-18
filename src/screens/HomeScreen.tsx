@@ -1,44 +1,29 @@
-import { FlatList, View, Text, TextInput } from "react-native";
+import { FlatList, View, Text, TextInput, TouchableOpacity } from "react-native";
 import { useEffect, useState } from "react";
-import { HOST, NGROK_URL, PORT } from "../constants";
 import { HomeStyles } from "../styles/styles";
-import { TouchableOpacity } from "react-native";
 import UserCreator from "../components/UserCreator";
 import { BlurView } from "expo-blur";
+import { getAnUserByName } from "../crud";
 
 const Home = ({ navigation }: MainScreenParams) => {
     const [people, setPeople] = useState();
     const [name, setName] = useState("");
     const [showCreator, setShowCreator] = useState(false);  
 
-    async function getUsers() {
-        try{
-            if (NGROK_URL.trim() !== "") {
-                await fetch(`${NGROK_URL}/people?firstname:startsWith=${name}`)
-                .then(response => response.json())
-                .then(data => setPeople(data));
-                return;
-            }
-
-            await fetch(`http://${HOST}:${PORT}/people?firstname:startsWith=${name}`)
-            .then(response => response.json())
-            .then(data => setPeople(data));
-            return;
-        } catch(error) {
-            console.error(`An error occured while getting people: ${error}`);
-        }
+    async function init(){
+        setPeople(await getAnUserByName(name));
     }
 
     useEffect(() => {
-        getUsers();
+        init();
     }, []);
 
     useEffect(() => {
-        getUsers();
+        init();
     }, [name]);
 
     useEffect(() => {
-        getUsers()
+        init();
     }, [showCreator]);
 
     return(

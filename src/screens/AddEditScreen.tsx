@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { HOST, NGROK_URL, PORT } from "../constants";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { ArrowBigLeftDash } from "lucide-react-native";
 import { EditStyles } from "../styles/styles";
 import AreYouSure from "../components/AreYouSure";
 import { BlurView } from "expo-blur";
+import { getAnUserById, updateAnUser } from "../crud";
 
 
 const Edit = ({ route, navigation }: EditScreenParams) => {
@@ -14,70 +14,16 @@ const Edit = ({ route, navigation }: EditScreenParams) => {
     const [userEmail, setUserEmail] = useState("");
     const [nameAfter, setNameAfter] = useState("");
     const [showDel, setShowDel] = useState(false);  
-    
-    async function updateAnUser(firstname: string, lastname: string, email: string) {
-        if (!id || !firstname || !lastname || !email) return;
-    
-        try {
-            if(NGROK_URL.trim() !== "") {
-                await fetch(`${NGROK_URL}/people/${id}`, {
-                    method: "PUT",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        firstname,
-                        lastname,
-                        email
-                    })
-                });
-
-                navigation.navigate("MainScreen");
-                return;
-            }
-
-            await fetch(`http://${HOST}:${PORT}/people/${id}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    firstname,
-                    lastname,
-                    email
-                })
-            });
-
-            navigation.navigate("MainScreen");
-            return;
-        } catch (error) {
-            console.error(`An error occured while updating a people: ${error}`);
-        }
-    }
 
     useEffect(() => {
         async function init() {
-            try {
-                if (NGROK_URL.trim() !== "") {
-                    await fetch(`${NGROK_URL}/people/${id}`)
-                    .then(response => response.json())
-                    .then((data) => {
-                        setUserName(data.firstname);
-                        setUserLastName(data.lastname);
-                        setUserEmail(data.email);
-                        setNameAfter(data.firstname);
-                    });
-                    return;
-                }
+            const user = await getAnUserById(id);
+            if (!user) return;
 
-                await fetch(`http://${HOST}:${PORT}/people/${id}`)
-                .then(response => response.json())
-                .then((data) => {
-                    setUserName(data.firstname);
-                    setUserLastName(data.lastname);
-                    setUserEmail(data.email);
-                    setNameAfter(data.firstname);
-                });
-                return;
-            } catch (error) {
-                console.error(`An error occured while getting a people: ${error}`);
-            }
+            setUserEmail(user.email);
+            setNameAfter(user.firstname);
+            setUserName(user.firstname);
+            setUserLastName(user.lastname);
         }
 
         init();
@@ -122,7 +68,10 @@ const Edit = ({ route, navigation }: EditScreenParams) => {
                     </View>  
 
 
-                    <TouchableOpacity onPress={() => updateAnUser(userName, userLastName, userEmail)} style={EditStyles.updBtn}>
+                    <TouchableOpacity style={EditStyles.updBtn} onPress={() => {
+                        updateAnUser(id, userName, userLastName, userEmail);
+                        navigation.navigate("MainScreen");
+                    }}>
                         <Text>
                             Update
                         </Text>

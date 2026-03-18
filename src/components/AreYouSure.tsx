@@ -1,31 +1,10 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import { SureStyles } from "../styles/styles";
 import { useState, useEffect } from "react";
-import { NGROK_URL, HOST, PORT } from "../constants";
+import { deleteUserById } from "../crud";
 
 const AreYouSure = ({ name, show, id, onClose, navigation }: { name: string, show: boolean, id: string, onClose: () => void, navigation: any }) => {
     const [viewDiv, setViewDiv] = useState(false);
-
-    async function deleteAnUser() {
-        if (!id) return;
-    
-        try {
-            if (NGROK_URL.trim() !== "") {
-                await fetch(`${NGROK_URL}/people/${id}`, {
-                    method: "DELETE"
-                });
-            } else {
-                await fetch(`http://${HOST}:${PORT}/people/${id}`, {
-                    method: "DELETE"
-                });
-            }
-
-            navigation.navigate("MainScreen");
-            return;
-        } catch (error) {
-            console.error(`An error occured while deleting a people: ${error}`);
-        }
-    }
 
     useEffect(() => {
         if (show) {
@@ -40,7 +19,10 @@ const AreYouSure = ({ name, show, id, onClose, navigation }: { name: string, sho
         <View style={[SureStyles.container, {display: viewDiv ? "flex" : "none"}]}>
             <Text style={{ fontSize: 23, fontWeight: 600 }}>Delete {name}?</Text>
             <View style={SureStyles.btnsView}>
-                <TouchableOpacity onPress={() => deleteAnUser()} style={SureStyles.btn}>
+                <TouchableOpacity style={SureStyles.btn} onPress={() => {
+                    deleteUserById(id);
+                    navigation.navigate("MainScreen");
+                }}>
                     <Text style={{color:"#fff"}}>
                         Delete
                     </Text>
