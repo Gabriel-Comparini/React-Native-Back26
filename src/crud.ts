@@ -21,12 +21,7 @@ export async function deleteUserById(id: string) {
     }
 }
 
-export async function createNewUser(firstname: string, lastname: string, email: string, setMissingDiv: () => void) {
-    if (!firstname || !lastname || !email) {
-        setMissingDiv;
-        return;
-    }
-
+export async function createNewUser(firstname: string, lastname: string, email: string) {
     try {
         if (NGROK_URL.trim() !== "") {
             await fetch(`${NGROK_URL}/people`, {
@@ -50,7 +45,6 @@ export async function createNewUser(firstname: string, lastname: string, email: 
                 email
             })
         }); 
-        
         return;
     } catch (error) {
         console.error(`An error occured while creating a new people: ${error}`);

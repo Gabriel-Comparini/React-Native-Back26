@@ -3,6 +3,7 @@ import { HOST, NGROK_URL, PORT } from "../constants";
 import { useEffect, useState } from "react";
 import { CreateStyles } from "../styles/styles";
 import { X } from "lucide-react-native";
+import { createNewUser } from "../crud";
 
 const UserCreator = ({ show, onClose }: { show: boolean, onClose: () => void }) => {
     const [viewDiv, setViewDiv] = useState(false);
@@ -11,43 +12,22 @@ const UserCreator = ({ show, onClose }: { show: boolean, onClose: () => void }) 
     const [userEmail, setUserEmail] = useState("");
     const [missingDiv, setMissingDiv] = useState(false);
 
-    async function createNewUser(firstname: string, lastname: string, email: string) {
-        if (!firstname || !lastname || !email) {
+    function closeComponent() {
+        setMissingDiv(false);
+        setUserEmail("");
+        setUserLastName("");
+        setUserName("");
+        onClose();
+    }
+    
+    function newUser() {
+        if (!userName || !userLastName || !userEmail) {
             setMissingDiv(true);
             return;
         }
-            
-        try {
-            if (NGROK_URL.trim() !== "") {
-                await fetch(`${NGROK_URL}/people`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        firstname,
-                        lastname,
-                        email
-                    })
-                }); 
-            } else {
-                await fetch(`http://${HOST}:${PORT}/people`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        firstname,
-                        lastname,
-                        email
-                    })
-                }); 
-            }
-            setMissingDiv(false);
-            setUserEmail("");
-            setUserLastName("");
-            setUserName("");
-            onClose();
-            return;
-        } catch (error) {
-            console.error(`An error occured while creating a new people: ${error}`);
-        }
+        createNewUser(userName, userLastName, userEmail);
+        closeComponent()
+        return;
     }
 
     useEffect(() => {
@@ -78,9 +58,7 @@ const UserCreator = ({ show, onClose }: { show: boolean, onClose: () => void }) 
 
             <TextInput style={CreateStyles.createInput} value={userEmail} onChangeText={ setUserEmail } placeholder="Enter your email..."/>
 
-            <TouchableOpacity style={CreateStyles.createBtn} onPress={() => {
-                setMissingDiv(false);
-            }}>
+            <TouchableOpacity style={CreateStyles.createBtn} onPress={() => newUser()}>
                 <Text>
                     Create
                 </Text>

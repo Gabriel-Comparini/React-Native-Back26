@@ -56,7 +56,7 @@
     },
     {
       "firstname": "Camila",
-      "lastname": "Barbosa",
+      "lastname": "Barbosi",
       "email": "camila@gmail.com",
       "id": "12"
     },
@@ -131,12 +131,6 @@
       "lastname": "Batista",
       "email": "amanda@gmail.com",
       "id": "24"
-    },
-    {
-      "firstname": "Felipe",
-      "lastname": "Campos",
-      "email": "felipe@gmail.com",
-      "id": "25"
     },
     {
       "firstname": "Vanessa",
