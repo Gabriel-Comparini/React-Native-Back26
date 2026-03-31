@@ -6,7 +6,8 @@ type ScreenTypes = {
 type UserTypes = {
   firstname: string,
   lastname: string,
-  email: string
+  email: string,
+  phone: string
 }
 
 type EditScreenParams = NativeStackScreenProps<ScreenTypes, "EditScreen">;

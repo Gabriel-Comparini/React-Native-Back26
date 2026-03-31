@@ -1,3 +1,4 @@
+import { Alert } from "react-native";
 import { NGROK_URL, HOST, PORT } from "./constants";
 
 export async function deleteUserById(id: string) {
@@ -21,7 +22,7 @@ export async function deleteUserById(id: string) {
     }
 }
 
-export async function createNewUser(firstname: string, lastname: string, email: string) {
+export async function createNewUser(firstname: string, lastname: string, email: string, phone: string) {
     try {
         if (NGROK_URL.trim() !== "") {
             await fetch(`${NGROK_URL}/people`, {
@@ -30,7 +31,8 @@ export async function createNewUser(firstname: string, lastname: string, email: 
                 body: JSON.stringify({
                     firstname,
                     lastname,
-                    email
+                    email, 
+                    phone
                 })
             }); 
             return;
@@ -42,7 +44,8 @@ export async function createNewUser(firstname: string, lastname: string, email: 
             body: JSON.stringify({
                 firstname,
                 lastname,
-                email
+                email, 
+                phone
             })
         }); 
         return;
@@ -51,8 +54,8 @@ export async function createNewUser(firstname: string, lastname: string, email: 
     }
 }
 
-export async function updateAnUser(id: string, firstname: string, lastname: string, email: string) {
-    if (!id || !firstname || !lastname || !email) return;
+export async function updateAnUser(id: string, firstname: string, lastname: string, email: string, phone: string) {
+    if (!id || !firstname || !lastname || !email || !phone) return;
     try {
         if(NGROK_URL.trim() !== "") {
             await fetch(`${NGROK_URL}/people/${id}`, {
@@ -61,7 +64,8 @@ export async function updateAnUser(id: string, firstname: string, lastname: stri
                 body: JSON.stringify({
                     firstname,
                     lastname,
-                    email
+                    email, 
+                    phone
                 })
             });
 
@@ -74,7 +78,8 @@ export async function updateAnUser(id: string, firstname: string, lastname: stri
             body: JSON.stringify({
                 firstname,
                 lastname,
-                email
+                email,
+                phone
             })
         });
 
@@ -99,15 +104,21 @@ export async function getAnUserById(id: string): Promise<UserTypes | undefined> 
 }
 
 export async function getAnUserByName(name: string = "") {
-    try{
-        if (NGROK_URL.trim() !== "") {
-            return await fetch(`${NGROK_URL}/people?firstname:startsWith=${name}`)
-            .then(response => response.json());
+    try {
+        const url = NGROK_URL.trim() !== ""
+            ? `${NGROK_URL}/people?firstname:startsWith=${name}`
+            : `http://${HOST}:${PORT}/people?firstname:startsWith=${name}`;
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`Erro no servidor: ${response.status}`);
         }
 
-        return await fetch(`http://${HOST}:${PORT}/people?firstname:startsWith=${name}`)
-        .then(response => response.json());
-    } catch(error) {
+        return await response.json();
+
+    } catch (error) {
         console.error(`An error occured while getting people: ${error}`);
+        throw error;
     }
 }

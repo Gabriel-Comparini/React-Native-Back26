@@ -86,7 +86,7 @@ export const EditStyles = StyleSheet.create({
         backgroundColor: "#a7ceff",
         display: "flex",
         alignItems: "center",
-        height: 500,
+        height: 550,
         width: "85%",
         borderRadius: 10,
         gap: 10,
@@ -113,7 +113,7 @@ export const EditStyles = StyleSheet.create({
         alignItems: "center"
     },
     bckgInput: {
-        height: "15%",
+        height: "13%",
         width: "95%"
     },
     updInput: {
@@ -130,7 +130,7 @@ export const CreateStyles = StyleSheet.create({
     container: {
         position: "absolute",
         width: "85%",
-        height: 350,
+        height: 500,
         backgroundColor: "#a7ceff",
         borderRadius: 10,
         alignItems: "center",
@@ -149,14 +149,14 @@ export const CreateStyles = StyleSheet.create({
     },
     createInput: {
         width: "90%",
-        height: "15%",
+        height: "13%",
         borderRadius: 5,
         padding: 10,
         backgroundColor: "#d9e8ff"
     },
     createBtn: {
         width: "90%",
-        height: "15%",
+        height: "13%",
         borderRadius: 5,
         display: "flex",
         justifyContent: "center",

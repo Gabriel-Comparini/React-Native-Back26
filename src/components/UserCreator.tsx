@@ -1,5 +1,4 @@
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
-import { HOST, NGROK_URL, PORT } from "../constants";
 import { useEffect, useState } from "react";
 import { CreateStyles } from "../styles/styles";
 import { X } from "lucide-react-native";
@@ -10,6 +9,7 @@ const UserCreator = ({ show, onClose }: { show: boolean, onClose: () => void }) 
     const [userName, setUserName] = useState("");
     const [userLastName, setUserLastName] = useState("");
     const [userEmail, setUserEmail] = useState("");
+    const [userPhone, setUserPhone] = useState("");
     const [missingDiv, setMissingDiv] = useState(false);
 
     function closeComponent() {
@@ -17,15 +17,16 @@ const UserCreator = ({ show, onClose }: { show: boolean, onClose: () => void }) 
         setUserEmail("");
         setUserLastName("");
         setUserName("");
+        setUserPhone("");
         onClose();
     }
     
     function newUser() {
-        if (!userName || !userLastName || !userEmail) {
+        if (!userName || !userLastName || !userEmail || !userPhone) {
             setMissingDiv(true);
             return;
         }
-        createNewUser(userName, userLastName, userEmail);
+        createNewUser(userName, userLastName, userEmail, userPhone);
         closeComponent()
         return;
     }
@@ -57,6 +58,8 @@ const UserCreator = ({ show, onClose }: { show: boolean, onClose: () => void }) 
             <TextInput style={CreateStyles.createInput} value={userLastName} onChangeText={ setUserLastName } placeholder="Enter your lastname..." />
 
             <TextInput style={CreateStyles.createInput} value={userEmail} onChangeText={ setUserEmail } placeholder="Enter your email..."/>
+
+            <TextInput style={CreateStyles.createInput} value={userPhone} onChangeText={ setUserPhone } placeholder="Enter your phone..."/>
 
             <TouchableOpacity style={CreateStyles.createBtn} onPress={() => newUser()}>
                 <Text>

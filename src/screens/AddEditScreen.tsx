@@ -12,6 +12,7 @@ const Edit = ({ route, navigation }: EditScreenParams) => {
     const [userName, setUserName] = useState("");
     const [userLastName, setUserLastName] = useState("");
     const [userEmail, setUserEmail] = useState("");
+    const [userPhone, setUserPhone] = useState("");
     const [nameAfter, setNameAfter] = useState("");
     const [showDel, setShowDel] = useState(false);  
 
@@ -24,6 +25,7 @@ const Edit = ({ route, navigation }: EditScreenParams) => {
             setNameAfter(user.firstname);
             setUserName(user.firstname);
             setUserLastName(user.lastname);
+            setUserPhone(user.phone);
         }
 
         init();
@@ -67,9 +69,16 @@ const Edit = ({ route, navigation }: EditScreenParams) => {
                         <TextInput value={userEmail} onChangeText={ setUserEmail } style={EditStyles.updInput} />
                     </View>  
 
+                    <View style={EditStyles.bckgInput}>
+                        <Text style={{ paddingLeft: 2 }}>
+                            Phone:
+                        </Text>
+
+                        <TextInput value={userPhone} onChangeText={ setUserPhone } style={EditStyles.updInput} />
+                    </View>  
 
                     <TouchableOpacity style={EditStyles.updBtn} onPress={() => {
-                        updateAnUser(id, userName, userLastName, userEmail);
+                        updateAnUser(id, userName, userLastName, userEmail, userPhone);
                         navigation.navigate("MainScreen");
                     }}>
                         <Text>
