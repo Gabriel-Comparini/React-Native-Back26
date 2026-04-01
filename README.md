@@ -102,7 +102,7 @@ Os dados são armazenados localmente no arquivo `database.json`, simulando um ba
 
 ## 📽️ Vídeo do mini-projeto <a name="video"></a>
 
-(colocar o vídeo)
+<video controls src="https://github.com/Gabriel-Comparini/React-Native-Back26/src/mp4/Demo.mp4"></video>
 
 ---
 
