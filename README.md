@@ -9,19 +9,6 @@
 
 ---
 
-## 📝 Table of Contents
-
-* [Sobre](#sobre)
-* [Começando](#começando)
-* [Deploy](#deploy)
-* [Uso](#uso)
-* [Tecnologias](#tecnologias)
-* [Autores](#autores)
-* [Video](#video)
-* [Agradecimentos](#agradecimentos)
-
----
-
 ## 🧐 Sobre <a name="sobre"></a>
 
 Este projeto é uma aplicação simples de CRUD (Create, Read, Update, Delete) desenvolvida utilizando React Native em conjunto com o JSON Server como backend fake.
